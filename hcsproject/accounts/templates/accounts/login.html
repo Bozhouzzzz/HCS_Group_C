@@ -107,6 +107,13 @@
             text-decoration: underline;
         }
 
+        .error-message {
+            color: red;
+            font-weight: bold;
+            text-align: center;
+            margin-top: 10px;
+        }
+
         @keyframes fadeInUp {
             from {
                 opacity: 0;
@@ -127,6 +134,9 @@
 
         {% if form.errors %}
             <p class="error-message">Username or password is incorrect.</p>
+        {% endif %}
+        {% if request.GET.timeout %}
+            <p class="error-message">Time expired, please try again.</p>
         {% endif %}
 
         <form method="post" class="login-form">

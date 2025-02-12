@@ -1,5 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.views import LoginView
+from django.contrib import messages
 
 PREDEFINED_TEXT = "lebron"
 CORRECT_ANSWER = "Lebron James"
@@ -33,3 +35,30 @@ def image_text_view_options(request):
             return redirect('failure_page')  # Redirect to failure page
 
     return render(request, 'accounts/image_text_options.html')
+
+# class CustomLoginView(LoginView):
+#     template_name = 'accounts/login.html'
+
+#     def get(self, request, *args, **kwargs):
+#         """检查 timeout 参数并显示超时消息"""
+#         if "timeout" in request.GET:  
+#             messages.error(request, "Session timed out. Please log in again.")
+#         return super().get(request, *args, **kwargs)
+
+
+class CustomLoginView(LoginView):
+    template_name = 'accounts/login.html'
+
+    def get(self, request, *args, **kwargs):
+        """检查 timeout 参数并显示超时消息"""
+        if request.GET.get("timeout"):
+            messages.error(request, "Session timed out. Please log in again.")
+            print("Added timeout message!")  # Debug 信息
+
+        return super().get(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        """确保 `messages` 在 POST 之后仍然可用"""
+        context = super().get_context_data(**kwargs)
+        context['messages'] = messages.get_messages(self.request)
+        return context
