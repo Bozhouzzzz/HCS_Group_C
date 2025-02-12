@@ -7,4 +7,5 @@ urlpatterns = [
     path('logout/', auth_views.LogoutView.as_view(next_page='/'), name='logout'),
     path('dashboard/', views.dashboard, name='dashboard'), # jump to second authentication page
     path('image-text/', views.image_text_view, name='image_text'), 
+    path('image-text-options/', views.image_text_view_options, name='image_text_options'),
 ]

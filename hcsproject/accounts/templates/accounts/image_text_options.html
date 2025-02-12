@@ -1,0 +1,53 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Choose an Option</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            text-align: center;
+        }
+        img {
+            max-width: 300px;
+            height: auto;
+            margin-bottom: 20px;
+        }
+        button {
+            margin-top: 10px;
+            padding: 10px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>Select an Option</h1>
+    <img src="{% static 'image.jpg' %}" alt="Sample Image">
+
+    <form method="POST">
+        {% csrf_token %}
+        
+        <label>
+            <input type="radio" name="user_choice" value="Lebron James"> Lebron James
+        </label><br>
+
+        <label>
+            <input type="radio" name="user_choice" value="Victor Wembanyama"> Victor Wembanyama
+        </label><br>
+
+        <label>
+            <input type="radio" name="user_choice" value="Chris Paul"> Chris Paul
+        </label><br>
+
+        <button type="submit">Submit</button>
+    </form>
+</body>
+</html>
