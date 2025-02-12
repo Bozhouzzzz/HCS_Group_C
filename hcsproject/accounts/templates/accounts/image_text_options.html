@@ -183,7 +183,7 @@
 
         function updateTimer() {
             if (timeLeft <= 0) {
-                window.location.href = "{% url 'login' %}"; 
+                window.location.href = "{% url 'login' %}?timeout=1";
             } else {
                 countdownElement.textContent = timeLeft;
                 timeLeft--;
