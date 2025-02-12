@@ -6,48 +6,167 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Choose an Option</title>
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        }
+
         body {
-            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+            text-align: center;
+            overflow: hidden;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 40px;
+            width: 400px;
+            box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            animation: fadeInUp 1s ease-out;
+        }
+
+        h1 {
+            font-size: 22px;
+            font-weight: 500;
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        .image-box img {
+            width: 100%;
+            border-radius: 15px;
+            box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .image-box img:hover {
+            transform: scale(1.05);
+        }
+
+        .radio-group {
+            margin-top: 20px;
             display: flex;
             flex-direction: column;
+            gap: 10px;
             align-items: center;
-            justify-content: center;
-            height: 100vh;
-            text-align: center;
         }
-        img {
-            max-width: 300px;
-            height: auto;
-            margin-bottom: 20px;
-        }
-        button {
-            margin-top: 10px;
-            padding: 10px;
-            font-size: 16px;
+
+        label {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(255, 255, 255, 0.6);
+            padding: 12px 20px;
+            border-radius: 10px;
+            width: 100%;
+            max-width: 280px;
             cursor: pointer;
+            transition: 0.3s ease;
+            box-shadow: inset 0px 2px 5px rgba(0, 0, 0, 0.1);
         }
+
+        input[type="radio"] {
+            appearance: none;
+            width: 18px;
+            height: 18px;
+            border: 2px solid #4caf50;
+            border-radius: 50%;
+            transition: 0.3s ease;
+            position: relative;
+        }
+
+        input[type="radio"]:checked {
+            background: #4caf50;
+        }
+
+        input[type="radio"]:checked::before {
+            content: "";
+            width: 8px;
+            height: 8px;
+            background: white;
+            border-radius: 50%;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        label:hover {
+            background: rgba(255, 255, 255, 0.9);
+            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .submit-button {
+            margin-top: 20px;
+            width: 100%;
+            background: linear-gradient(135deg, #4caf50, #45a049);
+            color: white;
+            padding: 12px;
+            font-size: 16px;
+            font-weight: bold;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: 0.3s ease-in-out;
+            box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .submit-button:hover {
+            background: linear-gradient(135deg, #5ed161, #3e9245);
+            box-shadow: 0px 5px 30px rgba(76, 175, 80, 0.5);
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
     </style>
 </head>
 <body>
-    <h1>Select an Option</h1>
-    <img src="{% static 'image.jpg' %}" alt="Sample Image">
 
-    <form method="POST">
-        {% csrf_token %}
-        
-        <label>
-            <input type="radio" name="user_choice" value="Lebron James"> Lebron James
-        </label><br>
+    <div class="card">
+        <h1>Select an Option</h1>
 
-        <label>
-            <input type="radio" name="user_choice" value="Victor Wembanyama"> Victor Wembanyama
-        </label><br>
+        <div class="image-box">
+            <img src="{% static 'image.jpg' %}" alt="Sample Image">
+        </div>
 
-        <label>
-            <input type="radio" name="user_choice" value="Chris Paul"> Chris Paul
-        </label><br>
+        <form method="POST">
+            {% csrf_token %}
+            
+            <div class="radio-group">
+                <label>
+                    <input type="radio" name="user_choice" value="Lebron James"> Lebron James
+                </label>
 
-        <button type="submit">Submit</button>
-    </form>
+                <label>
+                    <input type="radio" name="user_choice" value="Victor Wembanyama"> Victor Wembanyama
+                </label>
+
+                <label>
+                    <input type="radio" name="user_choice" value="Chris Paul"> Chris Paul
+                </label>
+            </div>
+
+            <button type="submit" class="submit-button">Submit</button>
+        </form>
+    </div>
+
 </body>
 </html>

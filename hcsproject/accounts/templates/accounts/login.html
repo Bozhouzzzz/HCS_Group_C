@@ -3,18 +3,145 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Login</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign In - Apple Style</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(135deg, #f0f0f5, #e6e6ea);
+            overflow: hidden;
+        }
+
+        .login-container {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 40px;
+            width: 350px;
+            text-align: center;
+            box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            animation: fadeInUp 1s ease-out;
+            transform: scale(1.02);
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .login-container:hover {
+            transform: scale(1.05);
+        }
+
+        .login-container h2 {
+            color: #333;
+            font-size: 24px;
+            font-weight: 500;
+            margin-bottom: 20px;
+        }
+
+        .login-form input {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 15px;
+            border: none;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.6);
+            color: #333;
+            font-size: 16px;
+            outline: none;
+            transition: 0.3s ease;
+            box-shadow: inset 0px 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .login-form input:focus {
+            background: rgba(255, 255, 255, 0.9);
+            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .error-message {
+            color: #e74c3c;
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
+
+        .login-button {
+            width: 100%;
+            background: linear-gradient(135deg, #4caf50, #45a049);
+            color: white;
+            padding: 12px;
+            font-size: 16px;
+            font-weight: bold;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: 0.3s ease-in-out;
+            box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .login-button:hover {
+            background: linear-gradient(135deg, #5ed161, #3e9245);
+            box-shadow: 0px 5px 30px rgba(76, 175, 80, 0.5);
+        }
+
+        .extra-options {
+            margin-top: 15px;
+        }
+
+        .extra-options a {
+            color: #555;
+            text-decoration: none;
+            font-size: 14px;
+            transition: 0.3s;
+        }
+
+        .extra-options a:hover {
+            color: #000;
+            text-decoration: underline;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+    </style>
 </head>
 <body>
-    <h2>Login</h2>
-    {% if form.errors %}
-        <p style="color: red;">Username or password is incorrect.</p>
-    {% endif %}
-    <form method="post">
-        {% csrf_token %}
-        <label>Username:</label> {{ form.username }} <br>
-        <label>Password:</label> {{ form.password }} <br>
-        <button type="submit">Login</button>
-    </form>
+
+    <div class="login-container">
+        <h2>Sign in</h2>
+
+        {% if form.errors %}
+            <p class="error-message">Username or password is incorrect.</p>
+        {% endif %}
+
+        <form method="post" class="login-form">
+            {% csrf_token %}
+            
+            <input type="text" name="username" placeholder="Username" required>
+            <input type="password" name="password" placeholder="Password" required>
+
+            <button type="submit" class="login-button">Continue</button>
+        </form>
+
+        <div class="extra-options">
+            <a href="#">Forgot password?</a> | <a href="#">Create an account</a>
+        </div>
+    </div>
+
 </body>
 </html>
